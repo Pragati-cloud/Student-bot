@@ -22,7 +22,35 @@ const VoiceAgent: React.FC<VoiceAgentProps> = ({ isDarkMode, isActive, onToggle 
   }, [isActive]);
 
   const handleVoiceToggle = () => {
-    setIsListening(!isListening);
+    const newListeningState = !isListening;
+    setIsListening(newListeningState);
+    
+    if (newListeningState) {
+      // Show recording started notification
+      const notification = document.createElement('div');
+      notification.className = `fixed top-20 right-4 px-4 py-2 rounded-lg shadow-lg z-50 transition-all duration-300 ${
+        isDarkMode ? 'bg-green-600 text-white' : 'bg-green-500 text-white'
+      }`;
+      notification.textContent = '🎤 Voice recording started';
+      document.body.appendChild(notification);
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => document.body.removeChild(notification), 300);
+      }, 2000);
+    } else {
+      // Show recording stopped notification
+      const notification = document.createElement('div');
+      notification.className = `fixed top-20 right-4 px-4 py-2 rounded-lg shadow-lg z-50 transition-all duration-300 ${
+        isDarkMode ? 'bg-red-600 text-white' : 'bg-red-500 text-white'
+      }`;
+      notification.textContent = '⏹️ Voice recording stopped';
+      document.body.appendChild(notification);
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => document.body.removeChild(notification), 300);
+      }, 2000);
+    }
+    
     onToggle();
   };
 
