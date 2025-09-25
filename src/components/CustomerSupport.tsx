@@ -46,20 +46,20 @@ const CustomerSupport: React.FC<CustomerSupportProps> = ({ isDarkMode }) => {
 
   if (!isOpen) {
     return (
-      <button
-        onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-2xl transition-all duration-500 hover:scale-125 hover:rotate-12 transform-gpu z-50 animate-bounce ${
-          isDarkMode 
-            ? 'bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 hover:from-purple-700 hover:via-blue-700 hover:to-indigo-700' 
-            : 'bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500 hover:from-purple-600 hover:via-blue-600 hover:to-indigo-600'
-        } text-white flex items-center justify-center`}
-        title="Customer Support"
-      >
-        <MessageCircle size={28} className="animate-pulse" />
-        <div className="absolute -top-2 -right-2 w-5 h-5 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center animate-ping">
-          <div className="w-3 h-3 bg-white rounded-full animate-pulse"></div>
-        </div>
-      </button>
+      <div className="fixed bottom-6 right-6 z-50">
+        <button
+          onClick={() => setIsOpen(true)}
+          className={`w-12 h-12 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${
+            isDarkMode 
+              ? 'bg-purple-600 hover:bg-purple-700' 
+              : 'bg-purple-500 hover:bg-purple-600'
+          } text-white flex items-center justify-center`}
+          title="Customer Support"
+        >
+          <MessageCircle size={20} />
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+        </button>
+      </div>
     );
   }
 
