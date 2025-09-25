@@ -82,17 +82,17 @@ const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel,
             {/* Voice Agent - Floating */}
             <button 
               onClick={onVoiceToggle}
-              className={`relative p-1.5 sm:p-2 rounded-full transition-all duration-300 hover:scale-110 hover:rotate-6 transform-gpu min-h-[36px] min-w-[36px] sm:min-h-[40px] sm:min-w-[40px] flex items-center justify-center ${
+              className={`relative p-1 sm:p-1.5 rounded-full transition-all duration-300 hover:scale-110 hover:rotate-6 transform-gpu min-h-[32px] min-w-[32px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center ${
                 isDarkMode 
                   ? 'bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 hover:from-purple-700 hover:via-blue-700 hover:to-indigo-700 text-white shadow-lg' 
                   : 'bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500 hover:from-purple-600 hover:via-blue-600 hover:to-indigo-600 text-white shadow-lg'
               }`}
               title="Voice Agent"
             >
-              <Mic size={12} className="sm:w-3.5 sm:h-3.5 animate-pulse" />
+              <Mic size={10} className="sm:w-3 sm:h-3 animate-pulse" />
               {/* Floating indicator */}
-              <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center animate-ping">
-                <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div>
+              <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center animate-ping">
+                <div className="w-1 h-1 bg-white rounded-full animate-pulse"></div>
               </div>
             </button>
 

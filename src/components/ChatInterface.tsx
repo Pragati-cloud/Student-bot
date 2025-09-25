@@ -330,8 +330,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
         <form onSubmit={handleSendMessage}>
           <div className={`flex items-center px-4 py-3 rounded-full border ${
             isDarkMode 
-              ? 'bg-gray-700 border-gray-600' 
-              : 'bg-gray-50 border-gray-300'
+              ? 'bg-gray-800 border-gray-700' 
+              : 'bg-white border-gray-200'
           } focus-within:border-blue-500 transition-colors duration-200 mx-2 sm:mx-0`}>
             {/* File Upload Icon - Left */}
             <input
@@ -349,8 +349,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
               }`}
               title="Upload file"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.64 16.2a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                <circle cx="9" cy="9" r="2"/>
+                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
               </svg>
             </button>
 
@@ -366,9 +368,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
               placeholder="Type your message..."
               className={`flex-1 bg-transparent border-none outline-none resize-none text-sm sm:text-base ${
                 isDarkMode ? 'text-white placeholder-gray-400' : 'text-gray-900 placeholder-gray-500'
-              }`}
+              } py-1`}
               rows={1}
-              style={{ minHeight: '20px', maxHeight: '80px' }}
+              style={{ minHeight: '16px', maxHeight: '60px' }}
               disabled={isLoading}
             />
             
@@ -377,7 +379,22 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
               {/* Voice Recording */}
               <button
                 type="button"
-                onClick={toggleRecording}
+                onClick={() => {
+                  toggleRecording();
+                  if (!isRecording) {
+                    // Show recording started notification
+                    const notification = document.createElement('div');
+                    notification.className = `fixed top-20 right-4 px-4 py-2 rounded-lg shadow-lg z-50 transition-all duration-300 ${
+                      isDarkMode ? 'bg-red-600 text-white' : 'bg-red-500 text-white'
+                    }`;
+                    notification.textContent = '🎤 Recording started...';
+                    document.body.appendChild(notification);
+                    setTimeout(() => {
+                      notification.style.opacity = '0';
+                      setTimeout(() => document.body.removeChild(notification), 300);
+                    }, 2000);
+                  }
+                }}
                 className={`p-1 transition-colors duration-200 ${
                   isRecording
                     ? 'text-red-500'
