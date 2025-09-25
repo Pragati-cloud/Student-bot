@@ -148,32 +148,30 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full space-y-8">
             <div className="text-center space-y-4">
-              <h2 className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h2 className={`text-3xl font-bold bg-gradient-to-r ${
+                isDarkMode 
+                  ? 'from-purple-400 via-blue-400 to-indigo-400' 
+                  : 'from-purple-600 via-blue-600 to-indigo-600'
+              } bg-clip-text text-transparent animate-pulse`}>
                 How can I help you today?
               </h2>
               <p className={`text-lg ${isDarkMode ? 'text-gray-400' : 'text-gray-600'} max-w-md mx-auto`}>
-                "I'm Mentify 1, trained to assist, designed to impress."
+                I'm Kuberya Bot, your AI learning assistant. Ask me anything or try one of these examples:
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl w-full px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl w-full">
               {exampleQuestions.map((question, index) => (
                 <button
                   key={index}
                   onClick={() => handleExampleClick(question)}
-                  className={`p-6 rounded-xl border transition-all duration-200 hover:shadow-md text-left min-h-[120px] flex flex-col justify-center ${
+                  className={`p-4 rounded-xl border-2 border-dashed transition-all duration-500 hover:scale-105 hover:rotate-1 transform-gpu text-left ${
                     isDarkMode 
-                      ? 'border-gray-700 bg-gray-800 hover:bg-gray-750 text-gray-300' 
-                      : 'border-gray-200 bg-white hover:bg-gray-50 text-gray-700'
-                  }`}
+                      ? 'border-purple-600 hover:border-blue-500 bg-gray-800/50 hover:bg-gradient-to-r hover:from-purple-800/50 hover:to-blue-800/50 text-gray-300 hover:text-white shadow-lg hover:shadow-purple-500/25' 
+                      : 'border-purple-400 hover:border-blue-400 bg-white/50 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 text-gray-700 hover:text-gray-900 shadow-lg hover:shadow-purple-500/25'
+                  } backdrop-blur-sm`}
                 >
-                  <div className="flex items-center space-x-3 mb-2">
-                    <div className={`w-5 h-5 rounded ${isDarkMode ? 'bg-blue-500' : 'bg-blue-500'}`}></div>
-                    <span className="font-medium">{question}</span>
-                  </div>
-                  <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                    Click to get started
-                  </span>
+                  <span className="text-sm font-medium">{question}</span>
                 </button>
               ))}
             </div>
@@ -279,7 +277,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
       </div>
 
       {/* Enhanced Input Area */}
-      <div className={`p-6 ${
+      <div className={`p-4 ${
         isDarkMode ? 'bg-gray-800' : 'bg-white'
       } border-t ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
         
@@ -320,13 +318,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
         )}
 
         <form onSubmit={handleSendMessage} className="space-y-3">
-          <div className={`relative flex items-center rounded-full border-2 px-4 py-3 ${
-            isDarkMode 
-              ? 'border-gray-600 bg-gray-700' 
-              : 'border-gray-300 bg-gray-50'
-          } focus-within:border-blue-500 transition-colors`}>
-            {/* Left side - File Upload Icon */}
-            <div className="flex items-center">
+          <div className="relative flex items-center space-x-2">
+            {/* Left side icons */}
+            <div className="flex items-center space-x-1">
+              {/* File Upload */}
               <input
                 ref={fileInputRef}
                 type="file"
@@ -337,7 +332,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className={`p-1 rounded transition-colors ${
+                className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
                   isDarkMode
                     ? 'text-purple-400 hover:bg-purple-800/50 hover:text-white'
                     : 'text-purple-600 hover:bg-purple-100 hover:text-purple-700'
@@ -358,48 +353,49 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               placeholder="Type your message..."
-              className={`flex-1 px-4 py-0 bg-transparent border-none resize-none ${
+              className={`flex-1 px-4 py-3 rounded-xl border resize-none transition-all duration-300 ${
                 isDarkMode 
-                  ? 'text-white placeholder-gray-400' 
-                  : 'text-gray-900 placeholder-gray-500'
-              } focus:outline-none`}
+                  ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-purple-500' 
+                  : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 focus:border-purple-500'
+              } focus:outline-none focus:ring-2 focus:ring-purple-500/20`}
               rows={1}
-              style={{ minHeight: '24px', maxHeight: '120px' }}
+              style={{ minHeight: '56px', maxHeight: '120px' }}
               disabled={isLoading}
+              className={`${isDragging ? 'ring-2 ring-purple-500' : ''}`}
             />
             
             {/* Right side icons */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1">
               {/* Voice Recording */}
               <button
                 type="button"
                 onClick={toggleRecording}
-                className={`p-1 rounded transition-colors ${
+                className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
                   isRecording
-                    ? 'text-red-500'
+                    ? 'bg-red-500 text-white animate-pulse'
                     : isDarkMode
-                      ? 'text-gray-400 hover:text-white'
-                      : 'text-gray-600 hover:text-gray-900'
-                }`}
+                      ? 'text-purple-400 hover:bg-purple-800/50'
+                      : 'text-purple-600 hover:bg-purple-100'
+                } shadow-lg hover:shadow-xl`}
                 title={isRecording ? 'Stop recording' : 'Start voice recording'}
               >
-                {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
+                {isRecording ? <MicOff size={20} /> : <Mic size={20} />}
               </button>
 
               {/* Send Button */}
               <button
                 type="submit"
                 disabled={(!inputText.trim() && attachments.length === 0) || isLoading}
-                className={`p-1 rounded transition-colors ${
+                className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
                   (inputText.trim() || attachments.length > 0) && !isLoading
-                    ? isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-500 hover:text-blue-600'
+                    ? 'bg-purple-500 text-white hover:bg-purple-600 shadow-lg hover:shadow-xl'
                     : isDarkMode
                       ? 'bg-gray-600 text-gray-400'
                       : 'bg-gray-300 text-gray-500'
-                }`}
+                } shadow-lg`}
                 title="Send message"
               >
-                <Send size={18} />
+                <Send size={20} />
               </button>
             </div>
           </div>

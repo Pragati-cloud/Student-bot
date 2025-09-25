@@ -20,6 +20,7 @@ function App() {
   const [selectedModel, setSelectedModel] = useState('Mentify 1');
   const [activeChat, setActiveChat] = useState<string>('1');
   const [isVoiceActive, setIsVoiceActive] = useState(false);
+  const [isSupportOpen, setIsSupportOpen] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([
     {
       id: '1',
@@ -91,8 +92,8 @@ function App() {
     setIsVoiceActive(!isVoiceActive);
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
+  const handleSupportToggle = () => {
+    setIsSupportOpen(!isSupportOpen);
   };
 
   const handleNewInteraction = (title: string, summary: string) => {
@@ -147,7 +148,7 @@ function App() {
         selectedModel={selectedModel}
         setSelectedModel={setSelectedModel}
         onVoiceToggle={handleVoiceToggle}
-        onLogout={handleLogout}
+        onSupportToggle={handleSupportToggle}
       />
       
       <div className="flex h-[calc(100vh-3.5rem)] sm:h-[calc(100vh-4rem)] h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] relative">
@@ -176,6 +177,7 @@ function App() {
         </div>
       </div>
       
+      <CustomerSupport isDarkMode={isDarkMode} />
     </div>
   );
 }
