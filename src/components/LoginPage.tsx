@@ -30,27 +30,36 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, isDarkMode }) => {
   };
 
   return (
-    <div className={`min-h-screen flex relative overflow-hidden ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100'}`}>
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 animate-pulse ${
-          isDarkMode ? 'bg-purple-500' : 'bg-purple-300'
-        }`}></div>
-        <div className={`absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full opacity-20 animate-bounce ${
-          isDarkMode ? 'bg-blue-500' : 'bg-blue-300'
-        }`}></div>
-        <div className={`absolute top-1/2 right-1/3 w-48 h-48 rounded-full opacity-20 animate-spin ${
-          isDarkMode ? 'bg-indigo-500' : 'bg-indigo-300'
-        }`} style={{ animationDuration: '20s' }}></div>
-        <div className={`absolute top-3/4 left-1/3 w-32 h-32 rounded-full opacity-15 animate-ping ${
-          isDarkMode ? 'bg-pink-500' : 'bg-pink-300'
-        }`}></div>
-      </div>
+    <div className={`min-h-screen flex relative overflow-hidden ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
 
       {/* Left Side - Branding */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden z-10">
-        <div className={`absolute inset-0 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
+        {/* Bubble Background Elements - Only behind Kuberya Bot section */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className={`absolute top-1/4 left-1/4 w-32 h-32 rounded-full opacity-10 animate-float ${
+            isDarkMode ? 'bg-blue-400' : 'bg-blue-300'
+          }`} style={{ animationDelay: '0s' }}></div>
+          <div className={`absolute top-1/3 right-1/4 w-24 h-24 rounded-full opacity-15 animate-float ${
+            isDarkMode ? 'bg-purple-400' : 'bg-purple-300'
+          }`} style={{ animationDelay: '2s' }}></div>
+          <div className={`absolute bottom-1/3 left-1/3 w-20 h-20 rounded-full opacity-12 animate-float ${
+            isDarkMode ? 'bg-indigo-400' : 'bg-indigo-300'
+          }`} style={{ animationDelay: '4s' }}></div>
+          <div className={`absolute top-2/3 right-1/3 w-16 h-16 rounded-full opacity-8 animate-float ${
+            isDarkMode ? 'bg-cyan-400' : 'bg-cyan-300'
+          }`} style={{ animationDelay: '1s' }}></div>
+          <div className={`absolute bottom-1/4 right-1/2 w-28 h-28 rounded-full opacity-10 animate-float ${
+            isDarkMode ? 'bg-pink-400' : 'bg-pink-300'
+          }`} style={{ animationDelay: '3s' }}></div>
+          <div className={`absolute top-1/2 left-1/5 w-12 h-12 rounded-full opacity-15 animate-float ${
+            isDarkMode ? 'bg-green-400' : 'bg-green-300'
+          }`} style={{ animationDelay: '5s' }}></div>
+          <div className={`absolute bottom-1/2 right-1/5 w-18 h-18 rounded-full opacity-12 animate-float ${
+            isDarkMode ? 'bg-yellow-400' : 'bg-yellow-300'
+          }`} style={{ animationDelay: '2.5s' }}></div>
         </div>
+        
+        <div className={`absolute inset-0 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}></div>
         <div className="relative z-20 flex flex-col justify-center items-center p-12">
           <div className="mb-8">
             <div className="w-24 h-24 flex items-center justify-center mb-6">

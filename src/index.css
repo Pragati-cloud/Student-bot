@@ -304,7 +304,7 @@ div[class*="bg-gradient-to-br"][class*="to-blue-600"],
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  50% { transform: translateY(-15px); }
 }
 
 .animate-fade-in {
@@ -316,7 +316,29 @@ div[class*="bg-gradient-to-br"][class*="to-blue-600"],
 }
 
 .animate-float {
-  animation: float 6s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Additional bubble animations with different speeds */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-10px) translateX(5px); }
+  50% { transform: translateY(-20px) translateX(0px); }
+  75% { transform: translateY(-10px) translateX(-5px); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  33% { transform: translateY(-15px) translateX(8px) rotate(120deg); }
+  66% { transform: translateY(-8px) translateX(-8px) rotate(240deg); }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 5s ease-in-out infinite;
 }
 
 /* Enhanced hover effects */
