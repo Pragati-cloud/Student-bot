@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import LoginPage from './components/LoginPage';
 import Navbar from './components/Navbar';
 import History from './components/History';
 import ChatInterface from './components/ChatInterface';
+import CustomerSupport from './components/CustomerSupport';
 
 interface HistoryItem {
   id: string;
@@ -13,6 +15,7 @@ interface HistoryItem {
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedModel, setSelectedModel] = useState('Mentify 1');
   const [activeChat, setActiveChat] = useState<string>('1');
   const [history, setHistory] = useState<HistoryItem[]>([
@@ -109,6 +112,14 @@ function App() {
     }
   }, [isDarkMode]);
 
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  if (!isLoggedIn) {
+    return <LoginPage onLogin={handleLogin} isDarkMode={isDarkMode} />;
+  }
+
   return (
     <div className={`min-h-screen min-h-[100dvh] transition-colors duration-300 ${
       isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
@@ -137,6 +148,8 @@ function App() {
           />
         </div>
       </div>
+      
+      <CustomerSupport isDarkMode={isDarkMode} />
     </div>
   );
 }

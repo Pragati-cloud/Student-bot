@@ -10,6 +10,36 @@ interface HistoryItem {
   summary: string;
 }
 
+const formatTimestamp = (timestamp: string): string => {
+  // Convert relative timestamps to actual dates for demo
+  const now = new Date();
+  let date: Date;
+  
+  if (timestamp.includes('hours ago')) {
+    const hours = parseInt(timestamp.split(' ')[0]);
+    date = new Date(now.getTime() - hours * 60 * 60 * 1000);
+  } else if (timestamp.includes('day ago')) {
+    const days = parseInt(timestamp.split(' ')[0]);
+    date = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+  } else if (timestamp.includes('days ago')) {
+    const days = parseInt(timestamp.split(' ')[0]);
+    date = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+  } else if (timestamp.includes('week ago')) {
+    date = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  } else {
+    date = now;
+  }
+  
+  return date.toLocaleDateString('en-US', { 
+    month: 'long', 
+    day: 'numeric', 
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
+};
+
 interface HistoryProps {
   isDarkMode: boolean;
   history: HistoryItem[];
@@ -33,17 +63,6 @@ const History: React.FC<HistoryProps> = ({ isDarkMode, history, activeChat, onCl
                 History
               </h2>
               <div className="flex space-x-1">
-                <button
-                  onClick={onClearHistory}
-                  className={`p-2 rounded-md transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center ${
-                    isDarkMode 
-                      ? 'text-gray-400 hover:text-white hover:bg-gray-800' 
-                      : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                  }`}
-                  title="Clear History"
-                >
-                  <Trash2 size={18} />
-                </button>
                 <button
                   onClick={() => setIsMobileOpen(false)}
                   className={`p-2 rounded-md transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center ${
@@ -84,29 +103,35 @@ const History: React.FC<HistoryProps> = ({ isDarkMode, history, activeChat, onCl
                     onClick={() => setIsMobileOpen(false)}
                   >
                     {/* Delete button - only visible on hover */}
-                    {onDeleteChat && (
+                    <div className="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-all duration-200">
+                      {onDeleteChat && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onDeleteChat(item.id);
+                          }}
+                          className={`p-1.5 rounded-md transition-all duration-200 min-h-[32px] min-w-[32px] flex items-center justify-center ${
+                            isDarkMode ? 'hover:text-red-400 text-gray-400 hover:bg-gray-700' : 'hover:text-red-500 text-gray-500 hover:bg-gray-100'
+                          }`}
+                          title="Delete chat"
+                        >
+                          <Trash2 size={12} />
+                        </button>
+                      )}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          onDeleteChat(item.id);
+                          // Handle download functionality
                         }}
-                        className={`absolute top-2 right-2 p-2 rounded-md transition-all duration-200 opacity-0 group-hover:opacity-100 min-h-[36px] min-w-[36px] flex items-center justify-center ${
-                          isDarkMode ? 'hover:text-red-400 text-gray-400' : 'hover:text-red-500 text-gray-500'
+                        className={`p-1.5 rounded-md transition-all duration-200 min-h-[32px] min-w-[32px] flex items-center justify-center ${
+                          isDarkMode ? 'hover:text-blue-400 text-gray-400 hover:bg-gray-700' : 'hover:text-blue-500 text-gray-500 hover:bg-gray-100'
                         }`}
-                        title="Delete chat"
+                        title="Download chat"
                       >
-                        <Trash2 size={14} />
+                        <Download size={12} />
                       </button>
-                    )}
-                    <div className="flex items-center justify-between mb-2 pr-12">
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        activeChat === item.id
-                          ? isDarkMode ? 'bg-blue-700 text-blue-200' : 'bg-blue-200 text-blue-800'
-                          : isDarkMode ? 'bg-blue-900 text-blue-200' : 'bg-blue-100 text-blue-800'
-                      }`}>
-                        {item.model}
-                      </span>
                     </div>
+                    
                     <h3 className={`text-sm font-medium mb-1 pr-12 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                       {item.title}
                     </h3>
@@ -116,6 +141,13 @@ const History: React.FC<HistoryProps> = ({ isDarkMode, history, activeChat, onCl
                         : isDarkMode ? 'text-gray-400' : 'text-gray-600'
                     }`}>
                       {item.summary}
+                    </p>
+                    <p className={`text-xs mt-2 pr-12 ${
+                      activeChat === item.id
+                        ? isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                        : isDarkMode ? 'text-gray-500' : 'text-gray-500'
+                    }`}>
+                      {formatTimestamp(item.timestamp)}
                     </p>
                   </div>
                 ))}
@@ -132,29 +164,6 @@ const History: React.FC<HistoryProps> = ({ isDarkMode, history, activeChat, onCl
             <h2 className={`text-lg font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
               History
             </h2>
-            <div className="flex space-x-2">
-              <button
-                onClick={onClearHistory}
-                className={`p-1.5 rounded-md transition-colors duration-200 ${
-                  isDarkMode 
-                    ? 'text-gray-400 hover:text-white hover:bg-gray-800' 
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                }`}
-                title="Clear History"
-              >
-                <Trash2 size={16} />
-              </button>
-              <button
-                className={`p-1.5 rounded-md transition-colors duration-200 ${
-                  isDarkMode 
-                    ? 'text-gray-400 hover:text-white hover:bg-gray-800' 
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                }`}
-                title="Export History"
-              >
-                <Download size={16} />
-              </button>
-            </div>
           </div>
         </div>
         
@@ -182,29 +191,35 @@ const History: React.FC<HistoryProps> = ({ isDarkMode, history, activeChat, onCl
                   }`}
                 >
                   {/* Delete button - only visible on hover */}
-                  {onDeleteChat && (
+                  <div className="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-all duration-200">
+                    {onDeleteChat && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onDeleteChat(item.id);
+                        }}
+                        className={`p-1.5 rounded-md transition-all duration-200 min-h-[28px] min-w-[28px] flex items-center justify-center ${
+                          isDarkMode ? 'hover:text-red-400 text-gray-400 hover:bg-gray-700' : 'hover:text-red-500 text-gray-500 hover:bg-gray-100'
+                        }`}
+                        title="Delete chat"
+                      >
+                        <Trash2 size={10} />
+                      </button>
+                    )}
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        onDeleteChat(item.id);
+                        // Handle download functionality
                       }}
-                      className={`absolute top-2 right-2 p-2 rounded-md transition-all duration-200 opacity-0 group-hover:opacity-100 min-h-[32px] min-w-[32px] flex items-center justify-center ${
-                        isDarkMode ? 'hover:text-red-400 text-gray-400' : 'hover:text-red-500 text-gray-500'
+                      className={`p-1.5 rounded-md transition-all duration-200 min-h-[28px] min-w-[28px] flex items-center justify-center ${
+                        isDarkMode ? 'hover:text-blue-400 text-gray-400 hover:bg-gray-700' : 'hover:text-blue-500 text-gray-500 hover:bg-gray-100'
                       }`}
-                      title="Delete chat"
+                      title="Download chat"
                     >
-                      <Trash2 size={12} />
+                      <Download size={10} />
                     </button>
-                  )}
-                  <div className="flex items-center justify-between mb-1 pr-10">
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      activeChat === item.id
-                        ? isDarkMode ? 'bg-blue-700 text-blue-200' : 'bg-blue-200 text-blue-800'
-                        : isDarkMode ? 'bg-blue-900 text-blue-200' : 'bg-blue-100 text-blue-800'
-                    }`}>
-                      {item.model}
-                    </span>
                   </div>
+                  
                   <h3 className={`text-sm font-medium mb-1 pr-10 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                     {item.title}
                   </h3>
@@ -214,6 +229,13 @@ const History: React.FC<HistoryProps> = ({ isDarkMode, history, activeChat, onCl
                       : isDarkMode ? 'text-gray-400' : 'text-gray-600'
                   }`}>
                     {item.summary}
+                  </p>
+                  <p className={`text-xs mt-2 pr-10 ${
+                    activeChat === item.id
+                      ? isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                      : isDarkMode ? 'text-gray-500' : 'text-gray-500'
+                  }`}>
+                    {formatTimestamp(item.timestamp)}
                   </p>
                 </div>
               ))}
