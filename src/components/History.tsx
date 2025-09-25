@@ -21,6 +21,11 @@ interface HistoryProps {
 const History: React.FC<HistoryProps> = ({ isDarkMode, history, activeChat, onClearHistory, onDeleteChat }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  // Get current time for real-time display
+  const getCurrentTime = () => {
+    return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
   // Format timestamp to show precise date and time
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
@@ -129,8 +134,9 @@ const History: React.FC<HistoryProps> = ({ isDarkMode, history, activeChat, onCl
                       activeChat === item.id
                         ? isDarkMode ? 'text-gray-400' : 'text-gray-500'
                         : isDarkMode ? 'text-gray-500' : 'text-gray-400'
-                    }`}>
-                      {formatTimestamp(item.timestamp)}
+                    } flex items-center space-x-2`}>
+                      <span>{formatTimestamp(item.timestamp)}</span>
+                      <span className="text-green-500">• {getCurrentTime()}</span>
                     </p>
                   </div>
                 ))}
@@ -218,8 +224,9 @@ const History: React.FC<HistoryProps> = ({ isDarkMode, history, activeChat, onCl
                     activeChat === item.id
                       ? isDarkMode ? 'text-gray-400' : 'text-gray-500'
                       : isDarkMode ? 'text-gray-500' : 'text-gray-400'
-                  }`}>
-                    {formatTimestamp(item.timestamp)}
+                  } flex items-center space-x-2`}>
+                    <span>{formatTimestamp(item.timestamp)}</span>
+                    <span className="text-green-500">• {getCurrentTime()}</span>
                   </p>
                 </div>
               ))}

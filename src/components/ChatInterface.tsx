@@ -139,36 +139,15 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
   };
 
   return (
-    <div className={`flex flex-col h-full relative overflow-hidden ${
-      isDarkMode 
-        ? 'bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/20' 
-        : 'bg-gradient-to-br from-gray-50 via-purple-50/50 to-blue-50/50'
+    <div className={`flex flex-col h-full ${
+      isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
     }`}>
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute top-1/4 left-1/4 w-64 h-64 rounded-full opacity-10 animate-pulse ${
-          isDarkMode ? 'bg-purple-500' : 'bg-purple-300'
-        }`}></div>
-        <div className={`absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full opacity-10 animate-bounce ${
-          isDarkMode ? 'bg-blue-500' : 'bg-blue-300'
-        }`}></div>
-        <div className={`absolute top-1/2 right-1/3 w-32 h-32 rounded-full opacity-10 animate-spin ${
-          isDarkMode ? 'bg-indigo-500' : 'bg-indigo-300'
-        }`} style={{ animationDuration: '20s' }}></div>
-      </div>
 
       {/* Chat Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent relative z-10">
+      <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full space-y-8">
             <div className="text-center space-y-4">
-              <div className={`w-20 h-20 mx-auto rounded-full ${
-                isDarkMode 
-                  ? 'bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600' 
-                  : 'bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500'
-              } flex items-center justify-center mb-6 animate-bounce shadow-2xl`}>
-                <Bot className="text-white animate-pulse" size={40} />
-              </div>
               <h2 className={`text-3xl font-bold bg-gradient-to-r ${
                 isDarkMode 
                   ? 'from-purple-400 via-blue-400 to-indigo-400' 
@@ -298,11 +277,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
       </div>
 
       {/* Enhanced Input Area */}
-      <div className={`relative z-10 p-4 ${
-        isDarkMode 
-          ? 'bg-gradient-to-r from-gray-900/95 via-purple-900/20 to-blue-900/20' 
-          : 'bg-gradient-to-r from-white/95 via-purple-50/50 to-blue-50/50'
-      } backdrop-blur-xl border-t ${isDarkMode ? 'border-purple-700/30' : 'border-purple-200/50'}`}>
+      <div className={`p-4 ${
+        isDarkMode ? 'bg-gray-800' : 'bg-white'
+      } border-t ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
         
         {/* Attachments Preview */}
         {attachments.length > 0 && (
@@ -341,34 +318,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
         )}
 
         <form onSubmit={handleSendMessage} className="space-y-3">
-          <div 
-            className={`relative rounded-2xl transition-all duration-300 ${
-              isDragging 
-                ? isDarkMode ? 'ring-2 ring-purple-500' : 'ring-2 ring-purple-400'
-                : ''
-            }`}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-          >
-            <textarea
-              ref={textareaRef}
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Type your message..."
-              className={`w-full px-4 py-4 pr-32 rounded-2xl border resize-none transition-all duration-300 focus:scale-105 transform-gpu ${
-                isDarkMode 
-                  ? 'bg-gray-800/80 border-purple-700/30 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20' 
-                  : 'bg-white/80 border-purple-200/50 text-gray-900 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20'
-              } backdrop-blur-sm shadow-lg hover:shadow-xl`}
-              rows={1}
-              style={{ minHeight: '56px', maxHeight: '120px' }}
-              disabled={isLoading}
-            />
-            
-            {/* Input Controls */}
-            <div className="absolute right-2 bottom-2 flex items-center space-x-1">
+          <div className="relative flex items-center space-x-2">
+            {/* Left side icons */}
+            <div className="flex items-center space-x-1">
               {/* File Upload */}
               <input
                 ref={fileInputRef}
@@ -380,46 +332,70 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className={`p-2 rounded-xl transition-all duration-300 hover:scale-110 transform-gpu ${
+                className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
                   isDarkMode
                     ? 'text-purple-400 hover:bg-purple-800/50 hover:text-white'
                     : 'text-purple-600 hover:bg-purple-100 hover:text-purple-700'
                 } shadow-lg hover:shadow-xl`}
-                title="Upload file"
+                title="Upload image/video"
               >
-                <Upload size={18} />
+                <img src="/gallery.png" alt="Upload" className="w-5 h-5" />
               </button>
+            </div>
 
+            {/* Text Input */}
+            <textarea
+              ref={textareaRef}
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              onKeyPress={handleKeyPress}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              placeholder="Type your message..."
+              className={`flex-1 px-4 py-3 rounded-xl border resize-none transition-all duration-300 ${
+                isDarkMode 
+                  ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-purple-500' 
+                  : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 focus:border-purple-500'
+              } focus:outline-none focus:ring-2 focus:ring-purple-500/20`}
+              rows={1}
+              style={{ minHeight: '56px', maxHeight: '120px' }}
+              disabled={isLoading}
+              className={`${isDragging ? 'ring-2 ring-purple-500' : ''}`}
+            />
+            
+            {/* Right side icons */}
+            <div className="flex items-center space-x-1">
               {/* Voice Recording */}
               <button
                 type="button"
                 onClick={toggleRecording}
-                className={`p-2 rounded-xl transition-all duration-300 hover:scale-110 transform-gpu ${
+                className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
                   isRecording
-                    ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white animate-pulse'
+                    ? 'bg-red-500 text-white animate-pulse'
                     : isDarkMode
-                      ? 'text-purple-400 hover:bg-purple-800/50 hover:text-white'
-                      : 'text-purple-600 hover:bg-purple-100 hover:text-purple-700'
+                      ? 'text-purple-400 hover:bg-purple-800/50'
+                      : 'text-purple-600 hover:bg-purple-100'
                 } shadow-lg hover:shadow-xl`}
                 title={isRecording ? 'Stop recording' : 'Start voice recording'}
               >
-                {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
+                {isRecording ? <MicOff size={20} /> : <Mic size={20} />}
               </button>
 
               {/* Send Button */}
               <button
                 type="submit"
                 disabled={(!inputText.trim() && attachments.length === 0) || isLoading}
-                className={`p-2 rounded-xl transition-all duration-300 hover:scale-110 hover:rotate-12 transform-gpu ${
+                className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
                   (inputText.trim() || attachments.length > 0) && !isLoading
-                    ? 'bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500 text-white hover:from-purple-600 hover:via-blue-600 hover:to-indigo-600 shadow-lg hover:shadow-xl animate-pulse'
+                    ? 'bg-purple-500 text-white hover:bg-purple-600 shadow-lg hover:shadow-xl'
                     : isDarkMode
-                      ? 'bg-gray-700 text-gray-500'
-                      : 'bg-gray-200 text-gray-400'
+                      ? 'bg-gray-600 text-gray-400'
+                      : 'bg-gray-300 text-gray-500'
                 } shadow-lg`}
                 title="Send message"
               >
-                <Send size={18} />
+                <Send size={20} />
               </button>
             </div>
           </div>

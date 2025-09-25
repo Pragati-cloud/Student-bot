@@ -30,24 +30,43 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, isDarkMode }) => {
   };
 
   return (
-    <div className={`min-h-screen flex ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-50 to-indigo-100'}`}>
+    <div className={`min-h-screen flex relative overflow-hidden ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100'}`}>
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 animate-pulse ${
+          isDarkMode ? 'bg-purple-500' : 'bg-purple-300'
+        }`}></div>
+        <div className={`absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full opacity-20 animate-bounce ${
+          isDarkMode ? 'bg-blue-500' : 'bg-blue-300'
+        }`}></div>
+        <div className={`absolute top-1/2 right-1/3 w-48 h-48 rounded-full opacity-20 animate-spin ${
+          isDarkMode ? 'bg-indigo-500' : 'bg-indigo-300'
+        }`} style={{ animationDuration: '20s' }}></div>
+        <div className={`absolute top-3/4 left-1/3 w-32 h-32 rounded-full opacity-15 animate-ping ${
+          isDarkMode ? 'bg-pink-500' : 'bg-pink-300'
+        }`}></div>
+      </div>
+
       {/* Left Side - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-        <div className={`absolute inset-0 ${isDarkMode ? 'bg-gradient-to-br from-gray-800 to-gray-900' : 'bg-gradient-to-br from-blue-600 to-indigo-700'}`}>
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden z-10">
+        <div className={`absolute inset-0 ${isDarkMode ? 'bg-gradient-to-br from-gray-800 via-purple-900 to-gray-900' : 'bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700'}`}>
           <div className="absolute inset-0 bg-black/20"></div>
+          {/* Additional floating elements */}
+          <div className="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full animate-float"></div>
+          <div className="absolute bottom-20 left-20 w-16 h-16 bg-white/10 rounded-full animate-bounce"></div>
         </div>
-        <div className="relative z-10 flex flex-col justify-center items-center text-white p-12">
+        <div className="relative z-20 flex flex-col justify-center items-center text-white p-12">
           <div className="mb-8">
-            <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm mb-6 animate-pulse">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 via-purple-400 to-indigo-500 rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: '3s' }}>
                 <span className="text-2xl font-bold text-white">K</span>
               </div>
             </div>
-            <h1 className="text-4xl font-bold mb-4">Kuberya Bot</h1>
-            <p className="text-xl text-blue-100 mb-8">Your AI-Powered Learning Assistant</p>
+            <h1 className="text-4xl font-bold mb-4 animate-pulse">Kuberya Bot</h1>
+            <p className="text-xl text-blue-100 mb-8 animate-fade-in">Your AI-Powered Learning Assistant</p>
           </div>
           <div className="text-center max-w-md">
-            <p className="text-lg text-blue-100 leading-relaxed">
+            <p className="text-lg text-blue-100 leading-relaxed animate-fade-in-delay">
               Experience personalized learning with our advanced AI chatbot designed specifically for students.
             </p>
           </div>
@@ -55,22 +74,22 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, isDarkMode }) => {
       </div>
 
       {/* Right Side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 relative z-10">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
               <span className="text-xl font-bold text-white">K</span>
             </div>
-            <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Kuberya Bot</h1>
+            <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} animate-pulse`}>Kuberya Bot</h1>
           </div>
 
-          <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-2xl shadow-2xl p-8`}>
+          <div className={`${isDarkMode ? 'bg-gray-800/90' : 'bg-white/90'} rounded-2xl shadow-2xl p-8 backdrop-blur-sm border ${isDarkMode ? 'border-purple-700/30' : 'border-purple-200/30'} hover:shadow-3xl transition-all duration-500`}>
             <div className="text-center mb-8">
-              <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2`}>
+              <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2 animate-fade-in`}>
                 {isSignUp ? 'Create Account' : 'Welcome Back'}
               </h2>
-              <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} animate-fade-in-delay`}>
                 {isSignUp ? 'Sign up to get started with Kuberya Bot' : 'Sign in to continue your learning journey'}
               </p>
             </div>
@@ -177,7 +196,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, isDarkMode }) => {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200 transform hover:scale-[1.02]"
+                className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:via-purple-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg animate-pulse"
               >
                 {isSignUp ? 'Create Account' : 'Sign In'}
               </button>
@@ -197,9 +216,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, isDarkMode }) => {
                 type="button"
                 className={`w-full ${
                   isDarkMode 
-                    ? 'bg-gray-700 hover:bg-gray-600 text-white border-gray-600' 
-                    : 'bg-white hover:bg-gray-50 text-gray-900 border-gray-300'
-                } border py-3 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200 flex items-center justify-center space-x-2`}
+                    ? 'bg-gray-700/80 hover:bg-gray-600 text-white border-gray-600' 
+                    : 'bg-white/80 hover:bg-gray-50 text-gray-900 border-gray-300'
+                } border py-3 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 flex items-center justify-center space-x-2 backdrop-blur-sm hover:scale-[1.02]`}
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -216,7 +235,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, isDarkMode }) => {
                 {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
                 <button
                   onClick={() => setIsSignUp(!isSignUp)}
-                  className="text-blue-500 hover:text-blue-600 font-semibold transition-colors"
+                  className="text-blue-500 hover:text-purple-600 font-semibold transition-colors duration-300 hover:underline"
                 >
                   {isSignUp ? 'Sign In' : 'Sign Up'}
                 </button>
