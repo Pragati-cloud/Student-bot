@@ -81,6 +81,13 @@ function App() {
     }
   ]);
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setHistory([]);
+    setActiveChat('');
+    setIsVoiceActive(false);
+  };
+
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
   };
