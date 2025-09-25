@@ -148,7 +148,8 @@ function App() {
         selectedModel={selectedModel}
         setSelectedModel={setSelectedModel}
         onVoiceToggle={handleVoiceToggle}
-        onSupportToggle={handleSupportToggle}
+        onLogout={handleLogout}
+        onNewChat={handleNewChat}
       />
       
       <div className="flex h-[calc(100vh-3.5rem)] sm:h-[calc(100vh-4rem)] h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] relative">

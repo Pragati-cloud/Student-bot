@@ -277,7 +277,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
       </div>
 
       {/* Enhanced Input Area */}
-      <div className={`p-4 ${
+      <div className={`p-6 ${
         isDarkMode ? 'bg-gray-800' : 'bg-white'
       } border-t ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
         
@@ -317,33 +317,37 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
           </div>
         )}
 
-        <form onSubmit={handleSendMessage} className="space-y-3">
-          <div className="relative flex items-center space-x-2">
-            {/* Left side icons */}
-            <div className="flex items-center space-x-1">
-              {/* File Upload */}
-              <input
-                ref={fileInputRef}
-                type="file"
-                multiple
-                className="hidden"
-                onChange={(e) => handleFileUpload(e.target.files)}
-              />
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
-                  isDarkMode
-                    ? 'text-purple-400 hover:bg-purple-800/50 hover:text-white'
-                    : 'text-purple-600 hover:bg-purple-100 hover:text-purple-700'
-                } shadow-lg hover:shadow-xl`}
-                title="Upload image/video"
-              >
-                <img src="/gallery.png" alt="Upload" className="w-5 h-5" />
-              </button>
-            </div>
 
-            {/* Text Input */}
+        <form onSubmit={handleSendMessage}>
+          {/* Text Input Field - Matching Screenshot */}
+          <div className={`relative flex items-center rounded-full border-2 px-4 py-3 ${
+            isDarkMode 
+              ? 'border-gray-600 bg-gray-700' 
+              : 'border-gray-300 bg-gray-50'
+          } transition-all duration-200 focus-within:border-purple-500`}>
+            
+            {/* File Upload Icon - Left Side */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              multiple
+              className="hidden"
+              onChange={(e) => handleFileUpload(e.target.files)}
+            />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className={`p-1 mr-3 transition-colors duration-200 ${
+                isDarkMode
+                  ? 'text-gray-400 hover:text-gray-300'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+              title="Upload image/video"
+            >
+              <img src="/gallery.png" alt="Upload" className="w-5 h-5 opacity-70" />
+            </button>
+
+            {/* Text Input - Center */}
             <textarea
               ref={textareaRef}
               value={inputText}
@@ -353,49 +357,50 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               placeholder="Type your message..."
-              className={`flex-1 px-4 py-3 rounded-xl border resize-none transition-all duration-300 ${
+              className={`flex-1 bg-transparent resize-none outline-none border-none ${
                 isDarkMode 
-                  ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-purple-500' 
-                  : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 focus:border-purple-500'
-              } focus:outline-none focus:ring-2 focus:ring-purple-500/20`}
+                  ? 'text-white placeholder-gray-400' 
+                  : 'text-gray-900 placeholder-gray-500'
+              }`}
               rows={1}
-              style={{ minHeight: '56px', maxHeight: '120px' }}
+              style={{ minHeight: '24px', maxHeight: '120px' }}
               disabled={isLoading}
-              className={`${isDragging ? 'ring-2 ring-purple-500' : ''}`}
             />
             
-            {/* Right side icons */}
-            <div className="flex items-center space-x-1">
+            {/* Right Side Icons */}
+            <div className="flex items-center space-x-2 ml-3">
               {/* Voice Recording */}
               <button
                 type="button"
                 onClick={toggleRecording}
-                className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
+                className={`p-1 transition-colors duration-200 ${
                   isRecording
-                    ? 'bg-red-500 text-white animate-pulse'
+                    ? 'text-red-500 animate-pulse'
                     : isDarkMode
-                      ? 'text-purple-400 hover:bg-purple-800/50'
-                      : 'text-purple-600 hover:bg-purple-100'
-                } shadow-lg hover:shadow-xl`}
+                      ? 'text-gray-400 hover:text-gray-300'
+                      : 'text-gray-500 hover:text-gray-700'
+                }`}
                 title={isRecording ? 'Stop recording' : 'Start voice recording'}
               >
-                {isRecording ? <MicOff size={20} /> : <Mic size={20} />}
+                {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
               </button>
 
               {/* Send Button */}
               <button
                 type="submit"
                 disabled={(!inputText.trim() && attachments.length === 0) || isLoading}
-                className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
+                className={`p-2 rounded-lg transition-colors duration-200 ${
                   (inputText.trim() || attachments.length > 0) && !isLoading
-                    ? 'bg-purple-500 text-white hover:bg-purple-600 shadow-lg hover:shadow-xl'
+                    ? isDarkMode
+                      ? 'bg-gray-600 text-white hover:bg-gray-500'
+                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                     : isDarkMode
                       ? 'bg-gray-600 text-gray-400'
                       : 'bg-gray-300 text-gray-500'
-                } shadow-lg`}
+                }`}
                 title="Send message"
               >
-                <Send size={20} />
+                <Send size={16} />
               </button>
             </div>
           </div>
