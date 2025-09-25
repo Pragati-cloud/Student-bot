@@ -59,15 +59,15 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, isDarkMode }) => {
           <div className="mb-8">
             <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm mb-6 animate-pulse">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-400 via-purple-400 to-indigo-500 rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: '3s' }}>
-                <span className="text-2xl font-bold text-white">K</span>
+                <span className="text-2xl font-bold text-white">M</span>
               </div>
             </div>
-            <h1 className="text-4xl font-bold mb-4 animate-pulse">Kuberya Bot</h1>
+            <h1 className="text-4xl font-bold mb-4 animate-pulse">Mentify AI</h1>
             <p className="text-xl text-blue-100 mb-8 animate-fade-in">Your AI-Powered Learning Assistant</p>
           </div>
           <div className="text-center max-w-md">
             <p className="text-lg text-blue-100 leading-relaxed animate-fade-in-delay">
-              Experience personalized learning with our advanced AI chatbot designed specifically for students.
+              Experience personalized learning with our advanced AI assistant designed specifically for students.
             </p>
           </div>
         </div>
@@ -79,9 +79,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, isDarkMode }) => {
           {/* Mobile Logo */}
           <div className="lg:hidden text-center mb-8">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
-              <span className="text-xl font-bold text-white">K</span>
+              <span className="text-xl font-bold text-white">M</span>
             </div>
-            <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} animate-pulse`}>Kuberya Bot</h1>
+            <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} animate-pulse`}>Mentify AI</h1>
           </div>
 
           <div className={`${isDarkMode ? 'bg-gray-800/90' : 'bg-white/90'} rounded-2xl shadow-2xl p-8 backdrop-blur-sm border ${isDarkMode ? 'border-purple-700/30' : 'border-purple-200/30'} hover:shadow-3xl transition-all duration-500`}>
