@@ -88,6 +88,15 @@ function App() {
     setIsLoggedIn(true);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
+  const handleNewChat = () => {
+    const newChatId = Date.now().toString();
+    setActiveChat(newChatId);
+  };
+
   const handleVoiceToggle = () => {
     setIsVoiceActive(!isVoiceActive);
   };
