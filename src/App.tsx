@@ -21,6 +21,7 @@ function App() {
   const [activeChat, setActiveChat] = useState<string>('1');
   const [isVoiceActive, setIsVoiceActive] = useState(false);
   const [isSupportOpen, setIsSupportOpen] = useState(false);
+  const [isNewChat, setIsNewChat] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([
     {
       id: '1',
@@ -96,16 +97,6 @@ function App() {
     setIsSupportOpen(!isSupportOpen);
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
-
-  const handleNewChat = () => {
-    // Clear current chat and start fresh
-    setActiveChat('');
-    // You can add more logic here to clear the current chat interface
-  };
-
   const handleNewInteraction = (title: string, summary: string) => {
     const newItem: HistoryItem = {
       id: Date.now().toString(),
@@ -134,6 +125,14 @@ function App() {
     }
   };
 
+  const handleNewChat = () => {
+    // Clear current chat and start fresh
+    setActiveChat('');
+    setIsNewChat(true);
+    // Reset the flag after a brief moment
+    setTimeout(() => setIsNewChat(false), 100);
+  };
+
   // Apply theme to document
   useEffect(() => {
     if (isDarkMode) {
@@ -158,8 +157,7 @@ function App() {
         selectedModel={selectedModel}
         setSelectedModel={setSelectedModel}
         onVoiceToggle={handleVoiceToggle}
-        onLogout={handleLogout}
-        onNewChat={handleNewChat}
+        onSupportToggle={handleSupportToggle}
       />
       
       <div className="flex h-[calc(100vh-3.5rem)] sm:h-[calc(100vh-4rem)] h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] relative">
@@ -183,6 +181,7 @@ function App() {
               isDarkMode={isDarkMode}
               selectedModel={selectedModel}
               onNewInteraction={handleNewInteraction}
+              isNewChat={isNewChat}
             />
           )}
         </div>
