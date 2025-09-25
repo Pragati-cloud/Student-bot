@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { User, LogOut, Sun, Moon, Bot, Zap, Brain, Sparkles, Mic, MessageCircle } from 'lucide-react';
+import { User, LogOut, Sun, Moon, Mic, MessageCircle } from 'lucide-react';
 
 interface NavbarProps {
   isDarkMode: boolean;
@@ -8,9 +8,10 @@ interface NavbarProps {
   setSelectedModel: (model: string) => void;
   onVoiceToggle?: () => void;
   onSupportToggle?: () => void;
+  onLogout?: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel, setSelectedModel, onVoiceToggle, onSupportToggle }) => {
+const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel, setSelectedModel, onVoiceToggle, onSupportToggle, onLogout }) => {
   const getModelDescription = (model: string) => {
     const descriptions: { [key: string]: string } = {
       'Mentify 1': 'General purpose AI assistant',
@@ -56,57 +57,61 @@ const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel,
             {/* Customer Support */}
             <button 
               onClick={onSupportToggle}
-              className={`p-2 sm:p-2 rounded-lg transition-all duration-300 hover:scale-110 min-h-[44px] min-w-[44px] flex items-center justify-center ${
+              className={`p-2 rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 min-h-[44px] min-w-[44px] flex items-center justify-center ${
                 isDarkMode 
-                  ? 'text-purple-400 hover:text-white hover:bg-purple-600/20' 
-                  : 'text-purple-600 hover:text-white hover:bg-purple-500/20'
+                  ? 'text-gray-400 hover:text-white' 
+                  : 'text-gray-600 hover:text-gray-900'
               }`}
               title="Customer Support"
             >
-              <MessageCircle size={16} className="sm:w-[18px] sm:h-[18px]" />
+              <MessageCircle size={18} />
             </button>
 
             {/* Voice Agent */}
             <button 
               onClick={onVoiceToggle}
-              className={`p-2 sm:p-2 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-6 transform-gpu min-h-[44px] min-w-[44px] flex items-center justify-center ${
+              className={`p-2 rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 min-h-[44px] min-w-[44px] flex items-center justify-center ${
                 isDarkMode 
-                  ? 'text-purple-400 hover:text-white hover:bg-purple-600/20' 
-                  : 'text-purple-600 hover:text-white hover:bg-purple-500/20'
+                  ? 'text-gray-400 hover:text-white' 
+                  : 'text-gray-600 hover:text-gray-900'
               }`}
               title="Voice Agent"
             >
-              <Mic size={16} className="sm:w-[18px] sm:h-[18px] animate-pulse" />
+              <Mic size={18} />
             </button>
 
             {/* Profile */}
-            <button className={`p-2 sm:p-2 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-6 transform-gpu min-h-[44px] min-w-[44px] flex items-center justify-center ${
+            <button className={`p-2 rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 min-h-[44px] min-w-[44px] flex items-center justify-center ${
               isDarkMode 
-                ? 'text-purple-400 hover:text-white hover:bg-purple-600/20' 
-                : 'text-purple-600 hover:text-white hover:bg-purple-500/20'
+                ? 'text-gray-400 hover:text-white' 
+                : 'text-gray-600 hover:text-gray-900'
             }`}>
-              <User size={16} className="sm:w-[18px] sm:h-[18px]" />
+              <User size={18} />
             </button>
 
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className={`p-2 sm:p-2 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-12 transform-gpu min-h-[44px] min-w-[44px] flex items-center justify-center ${
+              className={`p-2 rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 min-h-[44px] min-w-[44px] flex items-center justify-center ${
                 isDarkMode 
-                  ? 'text-purple-400 hover:text-white hover:bg-purple-600/20' 
-                  : 'text-purple-600 hover:text-white hover:bg-purple-500/20'
+                  ? 'text-gray-400 hover:text-white' 
+                  : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              {isDarkMode ? <Sun size={16} className="sm:w-[18px] sm:h-[18px] animate-spin" /> : <Moon size={16} className="sm:w-[18px] sm:h-[18px] animate-bounce" />}
+              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
             {/* Logout */}
-            <button className={`p-2 sm:p-2 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-6 transform-gpu min-h-[44px] min-w-[44px] flex items-center justify-center ${
+            <button 
+              onClick={onLogout}
+              className={`p-2 rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 min-h-[44px] min-w-[44px] flex items-center justify-center ${
               isDarkMode 
-                ? 'text-purple-400 hover:text-white hover:bg-red-600/20' 
-                : 'text-purple-600 hover:text-white hover:bg-red-500/20'
-            }`}>
-              <LogOut size={16} className="sm:w-[18px] sm:h-[18px]" />
+                ? 'text-gray-400 hover:text-white' 
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+              title="Logout"
+            >
+              <LogOut size={18} />
             </button>
           </div>
         </div>
