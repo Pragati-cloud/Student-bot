@@ -137,8 +137,10 @@ function App() {
     return <LoginPage onLogin={handleLogin} isDarkMode={isDarkMode} />;
   }
   return (
-    <div className={`min-h-screen min-h-[100dvh] transition-colors duration-300 ${
-      isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
+    <div className={`min-h-screen min-h-[100dvh] transition-all duration-500 ${
+      isDarkMode 
+        ? 'bg-gradient-to-br from-gray-900 via-purple-900/10 to-blue-900/10' 
+        : 'bg-gradient-to-br from-gray-50 via-purple-50/30 to-blue-50/30'
     }`}>
       <Navbar 
         isDarkMode={isDarkMode}
@@ -175,7 +177,7 @@ function App() {
         </div>
       </div>
       
-      {isSupportOpen && <CustomerSupport isDarkMode={isDarkMode} />}
+      <CustomerSupport isDarkMode={isDarkMode} />
     </div>
   );
 }
