@@ -332,7 +332,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
             isDarkMode 
               ? 'bg-gray-700 border-gray-600' 
               : 'bg-gray-50 border-gray-300'
-          } focus-within:border-blue-500 transition-colors duration-200`}>
+          } focus-within:border-blue-500 transition-colors duration-200 mx-2 sm:mx-0`}>
             {/* File Upload Icon - Left */}
             <input
               ref={fileInputRef}
@@ -344,7 +344,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className={`p-1 mr-3 transition-colors duration-200 ${
+              className={`p-1 mr-2 sm:mr-3 transition-colors duration-200 ${
                 isDarkMode ? 'text-gray-400 hover:text-gray-300' : 'text-gray-500 hover:text-gray-600'
               }`}
               title="Upload file"
@@ -364,16 +364,16 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               placeholder="Type your message..."
-              className={`flex-1 bg-transparent border-none outline-none resize-none ${
+              className={`flex-1 bg-transparent border-none outline-none resize-none text-sm sm:text-base ${
                 isDarkMode ? 'text-white placeholder-gray-400' : 'text-gray-900 placeholder-gray-500'
               }`}
               rows={1}
-              style={{ minHeight: '24px', maxHeight: '120px' }}
+              style={{ minHeight: '20px', maxHeight: '80px' }}
               disabled={isLoading}
             />
             
             {/* Right side icons */}
-            <div className="flex items-center space-x-2 ml-3">
+            <div className="flex items-center space-x-1 sm:space-x-2 ml-2 sm:ml-3">
               {/* Voice Recording */}
               <button
                 type="button"
@@ -387,14 +387,14 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
                 }`}
                 title={isRecording ? 'Stop recording' : 'Start voice recording'}
               >
-                {isRecording ? <MicOff size={20} /> : <Mic size={20} />}
+                {isRecording ? <MicOff size={16} className="sm:w-5 sm:h-5" /> : <Mic size={16} className="sm:w-5 sm:h-5" />}
               </button>
 
               {/* Send Button */}
               <button
                 type="submit"
                 disabled={(!inputText.trim() && attachments.length === 0) || isLoading}
-                className={`p-2 rounded-lg transition-colors duration-200 ${
+                className={`p-1.5 sm:p-2 rounded-lg transition-colors duration-200 ${
                   (inputText.trim() || attachments.length > 0) && !isLoading
                     ? isDarkMode
                       ? 'bg-gray-600 text-white hover:bg-gray-500'
@@ -405,7 +405,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
                 }`}
                 title="Send message"
               >
-                <Send size={16} />
+                <Send size={14} className="sm:w-4 sm:h-4" />
               </button>
             </div>
           </div>

@@ -42,9 +42,9 @@ const History: React.FC<HistoryProps> = ({ isDarkMode, history, activeChat, onCl
   return (
     <>
       {/* Mobile History Overlay */}
-      <div className={`lg:hidden fixed inset-0 z-50 ${isMobileOpen ? 'block' : 'hidden'}`}>
+      <div className={`md:hidden fixed inset-0 z-50 ${isMobileOpen ? 'block' : 'hidden'}`}>
         <div className="absolute inset-0 bg-black/50" onClick={() => setIsMobileOpen(false)}></div>
-        <div className={`absolute left-0 top-0 bottom-0 w-80 max-w-[85vw] ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'} border-r transition-colors duration-300 flex flex-col`}>
+        <div className={`absolute left-0 top-0 bottom-0 w-72 max-w-[80vw] ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'} border-r transition-colors duration-300 flex flex-col`}>
           <div className={`p-3 sm:p-4 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'} h-[60px] flex items-center`}>
             <div className="flex items-center justify-between w-full">
               <h2 className={`text-lg font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -147,7 +147,7 @@ const History: React.FC<HistoryProps> = ({ isDarkMode, history, activeChat, onCl
       </div>
 
       {/* Desktop History Sidebar */}
-      <div className={`w-80 h-full ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'} border-r transition-colors duration-300 flex-col lg:flex`}>
+      <div className={`w-72 lg:w-80 h-full ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'} border-r transition-colors duration-300 flex-col md:flex hidden`}>
         <div className={`p-4 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'} h-[73px] flex items-center`}>
           <div className="flex items-center justify-between w-full">
             <h2 className={`text-lg font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>

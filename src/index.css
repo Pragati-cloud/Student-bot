@@ -350,7 +350,7 @@ div[class*="bg-gradient-to-br"][class*="to-blue-600"],
 /* Mobile responsive improvements */
 @media (max-width: 640px) {
   .max-w-\[85\%\] {
-    max-width: 90%;
+    max-width: 95%;
   }
   
   .space-x-2 > :not([hidden]) ~ :not([hidden]) {
@@ -358,13 +358,13 @@ div[class*="bg-gradient-to-br"][class*="to-blue-600"],
   }
   
   .p-3 {
-    padding: 1rem;
+    padding: 0.75rem;
   }
   
   /* Ensure proper touch targets */
   button {
-    min-height: 44px;
-    min-width: 44px;
+    min-height: 36px;
+    min-width: 36px;
   }
   
   /* Better textarea handling */
@@ -381,11 +381,46 @@ div[class*="bg-gradient-to-br"][class*="to-blue-600"],
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
+  
+  /* Smaller text on mobile */
+  .text-sm {
+    font-size: 0.8rem;
+  }
+  
+  /* Compact spacing */
+  .space-x-1 > :not([hidden]) ~ :not([hidden]) {
+    margin-left: 0.25rem;
+  }
+  
+  /* Smaller padding for mobile */
+  .px-4 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  .py-3 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
 }
 
 @media (max-width: 768px) {
   .grid.sm\\:grid-cols-2 {
     grid-template-columns: 1fr;
+  }
+  
+  /* Better mobile layout */
+  .flex-1 {
+    min-width: 0;
+  }
+  
+  /* Responsive text sizing */
+  .text-lg {
+    font-size: 1rem;
+  }
+  
+  .text-xl {
+    font-size: 1.125rem;
   }
 }
 
