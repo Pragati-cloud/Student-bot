@@ -13,9 +13,10 @@ interface ChatInterfaceProps {
   isDarkMode: boolean;
   selectedModel: string;
   onNewInteraction: (title: string, summary: string) => void;
+  isNewChat?: boolean;
 }
 
-const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel, onNewInteraction }) => {
+const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel, onNewInteraction, isNewChat }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +26,15 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Clear messages when starting a new chat
+  useEffect(() => {
+    if (isNewChat) {
+      setMessages([]);
+      setInputText('');
+      setAttachments([]);
+    }
+  }, [isNewChat]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

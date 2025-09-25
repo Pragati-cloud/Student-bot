@@ -96,6 +96,16 @@ function App() {
     setIsSupportOpen(!isSupportOpen);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
+  const handleNewChat = () => {
+    // Clear current chat and start fresh
+    setActiveChat('');
+    // You can add more logic here to clear the current chat interface
+  };
+
   const handleNewInteraction = (title: string, summary: string) => {
     const newItem: HistoryItem = {
       id: Date.now().toString(),
@@ -148,7 +158,8 @@ function App() {
         selectedModel={selectedModel}
         setSelectedModel={setSelectedModel}
         onVoiceToggle={handleVoiceToggle}
-        onSupportToggle={handleSupportToggle}
+        onLogout={handleLogout}
+        onNewChat={handleNewChat}
       />
       
       <div className="flex h-[calc(100vh-3.5rem)] sm:h-[calc(100vh-4rem)] h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] relative">

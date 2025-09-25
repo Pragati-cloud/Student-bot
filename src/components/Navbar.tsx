@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { User, LogOut, Sun, Moon, Bot, Zap, Brain, Sparkles, Mic, MessageCircle } from 'lucide-react';
+import { User, LogOut, Sun, Moon, Bot, Zap, Brain, Sparkles, Mic, MessageCircle, Plus } from 'lucide-react';
 
 interface NavbarProps {
   isDarkMode: boolean;
@@ -8,9 +8,11 @@ interface NavbarProps {
   setSelectedModel: (model: string) => void;
   onVoiceToggle?: () => void;
   onSupportToggle?: () => void;
+  onLogout?: () => void;
+  onNewChat?: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel, setSelectedModel, onVoiceToggle, onSupportToggle }) => {
+const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel, setSelectedModel, onVoiceToggle, onSupportToggle, onLogout, onNewChat }) => {
   const getModelDescription = (model: string) => {
     const descriptions: { [key: string]: string } = {
       'Mentify 1': 'General purpose AI assistant',
@@ -53,30 +55,34 @@ const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel,
 
           {/* Navigation Items */}
           <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-4">
-            {/* Customer Support */}
+            {/* New Chat */}
             <button 
-              onClick={onSupportToggle}
+              onClick={onNewChat}
               className={`p-2 sm:p-2 rounded-lg transition-all duration-300 hover:scale-110 min-h-[44px] min-w-[44px] flex items-center justify-center ${
                 isDarkMode 
                   ? 'text-purple-400 hover:text-white hover:bg-purple-600/20' 
                   : 'text-purple-600 hover:text-white hover:bg-purple-500/20'
               }`}
-              title="Customer Support"
+              title="New Chat"
             >
-              <MessageCircle size={16} className="sm:w-[18px] sm:h-[18px]" />
+              <Plus size={16} className="sm:w-[18px] sm:h-[18px]" />
             </button>
 
-            {/* Voice Agent */}
+            {/* Voice Agent - Floating */}
             <button 
               onClick={onVoiceToggle}
-              className={`p-2 sm:p-2 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-6 transform-gpu min-h-[44px] min-w-[44px] flex items-center justify-center ${
+              className={`relative p-2 sm:p-2 rounded-full transition-all duration-300 hover:scale-110 hover:rotate-6 transform-gpu min-h-[40px] min-w-[40px] flex items-center justify-center ${
                 isDarkMode 
-                  ? 'text-purple-400 hover:text-white hover:bg-purple-600/20' 
-                  : 'text-purple-600 hover:text-white hover:bg-purple-500/20'
+                  ? 'bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 hover:from-purple-700 hover:via-blue-700 hover:to-indigo-700 text-white shadow-lg' 
+                  : 'bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500 hover:from-purple-600 hover:via-blue-600 hover:to-indigo-600 text-white shadow-lg'
               }`}
               title="Voice Agent"
             >
-              <Mic size={16} className="sm:w-[18px] sm:h-[18px] animate-pulse" />
+              <Mic size={14} className="sm:w-[16px] sm:h-[16px] animate-pulse" />
+              {/* Floating indicator */}
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center animate-ping">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+              </div>
             </button>
 
             {/* Profile */}
@@ -101,11 +107,15 @@ const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel,
             </button>
 
             {/* Logout */}
-            <button className={`p-2 sm:p-2 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-6 transform-gpu min-h-[44px] min-w-[44px] flex items-center justify-center ${
+            <button 
+              onClick={onLogout}
+              className={`p-2 sm:p-2 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-6 transform-gpu min-h-[44px] min-w-[44px] flex items-center justify-center ${
               isDarkMode 
                 ? 'text-purple-400 hover:text-white hover:bg-red-600/20' 
                 : 'text-purple-600 hover:text-white hover:bg-red-500/20'
-            }`}>
+            }`}
+              title="Logout"
+            >
               <LogOut size={16} className="sm:w-[18px] sm:h-[18px]" />
             </button>
           </div>
