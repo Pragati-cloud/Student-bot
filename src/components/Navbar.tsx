@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { User, LogOut, Sun, Moon, Bot, Zap, Brain, Sparkles, Mic } from 'lucide-react';
+import { User, LogOut, Sun, Moon, Bot, Zap, Brain, Sparkles, Mic, MessageCircle } from 'lucide-react';
 import logo from "/infinity__1_-removebg-preview.png";
 
 interface NavbarProps {
@@ -7,9 +7,11 @@ interface NavbarProps {
   toggleTheme: () => void;
   selectedModel: string;
   setSelectedModel: (model: string) => void;
+  onVoiceToggle?: () => void;
+  onSupportToggle?: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel, setSelectedModel }) => {
+const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel, setSelectedModel, onVoiceToggle, onSupportToggle }) => {
   const getModelDescription = (model: string) => {
     const descriptions: { [key: string]: string } = {
       'Mentify 1': 'General purpose AI assistant',
@@ -52,12 +54,29 @@ const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel,
 
           {/* Navigation Items */}
           <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-3">
+            {/* Customer Support */}
+            <button 
+              onClick={onSupportToggle}
+              className={`p-2 sm:p-2 rounded-lg transition-all duration-200 hover:scale-105 min-h-[44px] min-w-[44px] flex items-center justify-center ${
+                isDarkMode 
+                  ? 'text-gray-300 hover:text-white hover:bg-gray-800/80' 
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/80'
+              }`}
+              title="Customer Support"
+            >
+              <MessageCircle size={16} className="sm:w-[18px] sm:h-[18px]" />
+            </button>
+
             {/* Voice Agent */}
-            <button className={`p-2 sm:p-2 rounded-lg transition-all duration-200 hover:scale-105 min-h-[44px] min-w-[44px] flex items-center justify-center ${
-              isDarkMode 
-                ? 'text-gray-300 hover:text-white hover:bg-gray-800/80' 
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/80'
-            }`}>
+            <button 
+              onClick={onVoiceToggle}
+              className={`p-2 sm:p-2 rounded-lg transition-all duration-200 hover:scale-105 min-h-[44px] min-w-[44px] flex items-center justify-center ${
+                isDarkMode 
+                  ? 'text-gray-300 hover:text-white hover:bg-gray-800/80' 
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/80'
+              }`}
+              title="Voice Agent"
+            >
               <Mic size={16} className="sm:w-[18px] sm:h-[18px]" />
             </button>
 

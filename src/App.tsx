@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import History from './components/History';
 import ChatInterface from './components/ChatInterface';
 import CustomerSupport from './components/CustomerSupport';
+import VoiceAgent from './components/VoiceAgent';
 
 interface HistoryItem {
   id: string;
@@ -18,6 +19,8 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [selectedModel, setSelectedModel] = useState('Mentify 1');
   const [activeChat, setActiveChat] = useState<string>('1');
+  const [isVoiceActive, setIsVoiceActive] = useState(false);
+  const [isSupportOpen, setIsSupportOpen] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([
     {
       id: '1',
@@ -84,6 +87,15 @@ function App() {
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
+
+  const handleVoiceToggle = () => {
+    setIsVoiceActive(!isVoiceActive);
+  };
+
+  const handleSupportToggle = () => {
+    setIsSupportOpen(!isSupportOpen);
+  };
+
   const handleNewInteraction = (title: string, summary: string) => {
     const newItem: HistoryItem = {
       id: Date.now().toString(),
@@ -133,6 +145,8 @@ function App() {
         toggleTheme={toggleTheme}
         selectedModel={selectedModel}
         setSelectedModel={setSelectedModel}
+        onVoiceToggle={handleVoiceToggle}
+        onSupportToggle={handleSupportToggle}
       />
       
       <div className="flex h-[calc(100vh-3.5rem)] sm:h-[calc(100vh-4rem)] h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] relative">
@@ -145,15 +159,23 @@ function App() {
         />
         
         <div className="flex-1 flex flex-col">
-          <ChatInterface 
-            isDarkMode={isDarkMode}
-            selectedModel={selectedModel}
-            onNewInteraction={handleNewInteraction}
-          />
+          {isVoiceActive ? (
+            <VoiceAgent 
+              isDarkMode={isDarkMode}
+              isActive={isVoiceActive}
+              onToggle={handleVoiceToggle}
+            />
+          ) : (
+            <ChatInterface 
+              isDarkMode={isDarkMode}
+              selectedModel={selectedModel}
+              onNewInteraction={handleNewInteraction}
+            />
+          )}
         </div>
       </div>
       
-      <CustomerSupport isDarkMode={isDarkMode} />
+      {isSupportOpen && <CustomerSupport isDarkMode={isDarkMode} />}
     </div>
   );
 }
