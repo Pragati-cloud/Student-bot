@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import LoginPage from './components/LoginPage';
 import Navbar from './components/Navbar';
 import History from './components/History';
 import ChatInterface from './components/ChatInterface';
+import CustomerSupport from './components/CustomerSupport';
 
 interface HistoryItem {
   id: string;
@@ -12,62 +14,63 @@ interface HistoryItem {
 }
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [selectedModel, setSelectedModel] = useState('Mentify 1');
   const [activeChat, setActiveChat] = useState<string>('1');
   const [history, setHistory] = useState<HistoryItem[]>([
     {
       id: '1',
-      timestamp: '2 hours ago',
+      timestamp: 'September 25, 2025 at 10:30 AM',
       model: 'Mentify 1',
       title: 'Welcome conversation',
       summary: 'Initial setup and introduction to the platform features and capabilities.'
     },
     {
       id: '2',
-      timestamp: '1 day ago',
+      timestamp: 'September 24, 2025 at 2:15 PM',
       model: 'Mentify 2',
       title: 'Code assistance',
       summary: 'Help with React component development and TypeScript implementation.'
     },
     {
       id: '3',
-      timestamp: '2 days ago',
+      timestamp: 'September 23, 2025 at 9:45 AM',
       model: 'Mentify 4',
       title: 'Creative writing',
       summary: 'Collaborative story writing session with character development.'
     },
     {
       id: '4',
-      timestamp: '3 days ago',
+      timestamp: 'September 22, 2025 at 4:20 PM',
       model: 'Mentify 1',
       title: 'Data analysis help',
       summary: 'Assistance with interpreting statistical data and creating visualizations.'
     },
     {
       id: '5',
-      timestamp: '4 days ago',
+      timestamp: 'September 21, 2025 at 11:30 AM',
       model: 'Mentify 3',
       title: 'Language learning',
       summary: 'Practice conversation in Spanish with grammar corrections and tips.'
     },
     {
       id: '6',
-      timestamp: '5 days ago',
+      timestamp: 'September 20, 2025 at 3:45 PM',
       model: 'Mentify 2',
       title: 'Recipe suggestions',
       summary: 'Healthy meal planning and cooking instructions for vegetarian dishes.'
     },
     {
       id: '7',
-      timestamp: '1 week ago',
+      timestamp: 'September 18, 2025 at 8:15 AM',
       model: 'Mentify 1',
       title: 'Travel planning',
       summary: 'Itinerary creation for a 2-week European vacation with budget considerations.'
     },
     {
       id: '8',
-      timestamp: '1 week ago',
+      timestamp: 'September 17, 2025 at 6:30 PM',
       model: 'Mentify 4',
       title: 'Business strategy',
       summary: 'Market analysis and competitive positioning for a new startup idea.'
@@ -78,10 +81,19 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
   const handleNewInteraction = (title: string, summary: string) => {
     const newItem: HistoryItem = {
       id: Date.now().toString(),
-      timestamp: 'Just now',
+      timestamp: new Date().toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }),
       model: selectedModel,
       title,
       summary
@@ -109,6 +121,9 @@ function App() {
     }
   }, [isDarkMode]);
 
+  if (!isLoggedIn) {
+    return <LoginPage onLogin={handleLogin} isDarkMode={isDarkMode} />;
+  }
   return (
     <div className={`min-h-screen min-h-[100dvh] transition-colors duration-300 ${
       isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
@@ -137,6 +152,8 @@ function App() {
           />
         </div>
       </div>
+      
+      <CustomerSupport isDarkMode={isDarkMode} />
     </div>
   );
 }
