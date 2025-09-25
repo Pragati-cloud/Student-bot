@@ -88,15 +88,6 @@ function App() {
     setIsLoggedIn(true);
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
-
-  const handleNewChat = () => {
-    const newChatId = Date.now().toString();
-    setActiveChat(newChatId);
-  };
-
   const handleVoiceToggle = () => {
     setIsVoiceActive(!isVoiceActive);
   };
@@ -157,8 +148,7 @@ function App() {
         selectedModel={selectedModel}
         setSelectedModel={setSelectedModel}
         onVoiceToggle={handleVoiceToggle}
-        onLogout={handleLogout}
-        onNewChat={handleNewChat}
+        onSupportToggle={handleSupportToggle}
       />
       
       <div className="flex h-[calc(100vh-3.5rem)] sm:h-[calc(100vh-4rem)] h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] relative">
