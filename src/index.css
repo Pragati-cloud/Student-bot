@@ -349,6 +349,28 @@ div[class*="bg-gradient-to-br"][class*="to-blue-600"],
 
 /* Mobile responsive improvements */
 @media (max-width: 640px) {
+  /* Input field improvements */
+  .max-w-4xl {
+    max-width: calc(100vw - 2rem);
+  }
+  
+  /* Better spacing for input */
+  form > div {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  /* Smaller input padding */
+  .px-3 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .py-2 {
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
+  }
+  
   .max-w-\[85\%\] {
     max-width: 95%;
   }
@@ -412,6 +434,11 @@ div[class*="bg-gradient-to-br"][class*="to-blue-600"],
   /* Better mobile layout */
   .flex-1 {
     min-width: 0;
+  }
+  
+  /* Input field responsive sizing */
+  .max-w-4xl {
+    max-width: calc(100vw - 1rem);
   }
   
   /* Responsive text sizing */
@@ -581,6 +608,17 @@ body {
 
 /* Better mobile viewport handling */
 @media (max-width: 640px) {
+  /* Improved input field sizing */
+  form {
+    width: 100%;
+  }
+  
+  form > div {
+    max-width: calc(100vw - 1rem);
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  
   html {
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;

@@ -49,24 +49,22 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, isDarkMode }) => {
 
       {/* Left Side - Branding */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden z-10">
-        <div className={`absolute inset-0 ${isDarkMode ? 'bg-gradient-to-br from-gray-800 via-purple-900 to-gray-900' : 'bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700'}`}>
-          <div className="absolute inset-0 bg-black/20"></div>
-          {/* Additional floating elements */}
-          <div className="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full animate-float"></div>
-          <div className="absolute bottom-20 left-20 w-16 h-16 bg-white/10 rounded-full animate-bounce"></div>
+        <div className={`absolute inset-0 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
         </div>
-        <div className="relative z-20 flex flex-col justify-center items-center text-white p-12">
+        <div className="relative z-20 flex flex-col justify-center items-center p-12">
           <div className="mb-8">
-            <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm mb-6 animate-pulse">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 via-purple-400 to-indigo-500 rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: '3s' }}>
-                <span className="text-2xl font-bold text-white">K</span>
-              </div>
+            <div className="w-24 h-24 flex items-center justify-center mb-6">
+              <img 
+                src="/WhatsApp_Image_2025-09-25_at_12.21.37_b3f295e8-removebg-preview (1).png" 
+                alt="Kuberya Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
-            <h1 className="text-4xl font-bold mb-4 animate-pulse">Kuberya Bot</h1>
-            <p className="text-xl text-blue-100 mb-8 animate-fade-in">Your AI-Powered Learning Assistant</p>
+            <h1 className={`text-4xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Kuberya Bot</h1>
+            <p className={`text-xl mb-8 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Your AI-Powered Learning Assistant</p>
           </div>
           <div className="text-center max-w-md">
-            <p className="text-lg text-blue-100 leading-relaxed animate-fade-in-delay">
+            <p className={`text-lg leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               Experience personalized learning with our advanced AI chatbot designed specifically for students.
             </p>
           </div>
@@ -78,8 +76,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, isDarkMode }) => {
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
-              <span className="text-xl font-bold text-white">K</span>
+            <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <img 
+                src="/WhatsApp_Image_2025-09-25_at_12.21.37_b3f295e8-removebg-preview (1).png" 
+                alt="Kuberya Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
             <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Kuberya Bot</h1>
           </div>
