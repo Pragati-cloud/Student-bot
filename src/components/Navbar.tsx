@@ -329,6 +329,16 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
+              className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
+                isDarkMode
+                  ? 'text-purple-400 hover:bg-purple-800/50'
+                  : 'text-purple-600 hover:bg-purple-100'
+              } shadow-lg hover:shadow-xl`}
+              title="Upload file"
+            >
+              <Upload size={20} />
+            </button>
+
             <textarea
               ref={textareaRef}
               value={inputText}
@@ -342,11 +352,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ isDarkMode, selectedModel
                 isDarkMode 
                   ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-purple-500' 
                   : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 focus:border-purple-500'
-              } focus:outline-none focus:ring-2 focus:ring-purple-500/20`}
+              } focus:outline-none focus:ring-2 focus:ring-purple-500/20 ${isDragging ? 'ring-2 ring-purple-500' : ''}`}
               rows={1}
               style={{ minHeight: '56px', maxHeight: '120px' }}
               disabled={isLoading}
-              className={`${isDragging ? 'ring-2 ring-purple-500' : ''}`}
             />
             
             {/* Right side icons */}
