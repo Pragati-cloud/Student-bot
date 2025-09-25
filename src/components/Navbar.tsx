@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { User, LogOut, Sun, Moon, Bot, Zap, Brain, Sparkles, Mic, MessageCircle } from 'lucide-react';
-import logo from "/kuberya-logo.jpg";
 
 interface NavbarProps {
   isDarkMode: boolean;
@@ -31,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme, selectedModel,
             <div className="flex-shrink-0">
               <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center transition-all duration-500 hover:scale-110 hover:rotate-12 transform-gpu">
                 <img 
-                  src={logo} 
+                  src="/kuberya-logo.jpg" 
                   alt="Kuberya Logo" 
                   className="w-full h-full object-contain rounded-lg shadow-lg hover:shadow-xl transition-all duration-500"
                 />
